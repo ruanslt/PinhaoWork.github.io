@@ -1,0 +1,335 @@
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #F9F3E7;
+    margin: 0;
+    padding: 20px;
+  }
+  
+
+/* Top Bar (hambúrguer + logo) */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 10px;
+  }
+  
+  .menu-toggle {
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: #C25B22;
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    z-index: 1001;
+  }
+  
+  .logo3 {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .logo33 {
+    width: 120px;
+    height: auto;
+  }
+  
+  /* Menu lateral */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 240px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+    padding-top: 80px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .botao-servico {
+    background-color: #C25B22;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-weight: bold;
+    display: inline-block;
+    width: fit-content;
+  }
+  
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0 20px;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .sidebar ul li a:hover {
+    color: #C25B22;
+  }
+  
+  .sidebar .redes {
+    margin-top: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #999;
+  }
+  
+  .sidebar.active {
+    left: 0;
+  }
+  
+  
+  .container {
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
+  
+  .perfil {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+  }
+  
+  .foto-perfil {
+    text-align: center;
+  }
+  
+  .foto-perfil img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #C25B22;
+  }
+  
+  .foto-perfil button {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #C25B22;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .info-usuario h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .estatisticas {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    color: #555;
+  }
+  
+  .conteudo {
+    margin-top: 30px;
+  }
+  
+  .bio textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 16px;
+  }
+  
+  .historico ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .historico li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .acoes {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .acoes button {
+    background-color: #C25B22;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    width: fit-content;
+  }
+  
+  .curriculo input {
+    margin-top: 5px;
+  }
+  
+  .trabalhos-ativos {
+    margin-top: 40px;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+  
+  .card-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .card-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .titulo-card {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+  }
+  
+  .local {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .status-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #4CAF50;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(18px);
+  }
+  
+  .status-label {
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .footer {
+    background-color: #F9F3E7;
+    color: #555;
+    padding: 30px 20px;
+    text-align: center;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .footer-logo img {
+    width: 100px;
+    height: auto;
+  }
+  
+  .footer-info p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .footer-info a {
+    color: #4fc3f7;
+    text-decoration: none;
+  }
+  
+  .footer-info a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer .slogan {
+    font-weight: bold;
+    font-size: 15px;
+    max-width: 400px;
+    margin-top: 10px;
+  }
+  
