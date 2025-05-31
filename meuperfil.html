@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meu Perfil</title>
+  <link rel="stylesheet" href="css/meuperfil.css" />
+</head>
+<body>
+
+    <header class="top-bar">
+        <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+        <div class="logo3">
+          <a href="pginicial.html">
+            <img class="logo33" src="img/logo.png" alt="Logo" />
+          </a>
+        </div>
+      </header>
+    
+      <!-- Menu lateral -->
+      <nav class="sidebar" id="sidebar">
+        <ul>
+          <li><a href="pginicial.html">Página Inicial</a></li>
+
+          <li><a href="meuperfil.html">Meu Perfil</a></li>
+          <li><a href="castroservico.html">Cadastrar Serviço</a></li>
+          <li><a href="#">Ajuda</a></li>
+          <li class="redes">Redes Sociais</li>
+          <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </nav>
+    
+
+  <div class="container">
+    <!-- Perfil -->
+    <section class="perfil">
+      <div class="foto-perfil">
+        <img src="img/default-avatar.png" alt="Foto de perfil" id="preview-img"/>
+        <input type="file" id="upload-foto" accept="image/*" hidden/>
+        <button onclick="document.getElementById('upload-foto').click()">Trocar Foto</button>
+      </div>
+      <div class="info-usuario">
+        <h2>Nome do Usuário</h2>
+        <p>Entrou em: 20/01/2024</p>
+        <div class="estatisticas">
+          <span><strong>5</strong> Serviços Criados</span>
+          <span><strong>8</strong> Trabalhos Realizados</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bio e histórico -->
+    <section class="conteudo">
+      <div class="bio">
+        <h3>Bio</h3>
+        <textarea placeholder="Fale um pouco sobre você..."></textarea>
+      </div>
+
+      <div class="historico">
+        <h3>Histórico de Serviços Realizados</h3>
+        <ul>
+          <li>✅ Pintura de parede em Curitiba - Fev/2024</li>
+          <li>✅ Faxina residencial - Mar/2024</li>
+          <li>📝 Encanamento ofertado - aguardando aprovação</li>
+        </ul>
+      </div>
+
+      <section class="trabalhos-ativos">
+        <h3>Trabalhos Que Você Oferta Ativos</h3>
+        <div class="card">
+          <img src="img/logo.png" alt="Imagem do card" class="card-img" />
+          <div class="card-info">
+            <div class="card-header">
+              <h2 class="titulo-card">Serviço de Jardinagem</h2>
+              <a href="seuanuncio.html" class="link-topo">Detalhes</a>
+            </div>
+            <p class="local">Rua das Flores, 456 - Bairro Verde</p>
+            <div class="status-switch">
+              <label class="switch">
+                <input type="checkbox" checked onchange="toggleStatus(this)">
+                <span class="slider"></span>
+              </label>
+              <span class="status-label">Ativo</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="img/logo.png" alt="Imagem do card" class="card-img" />
+          <div class="card-info">
+            <div class="card-header">
+              <h2 class="titulo-card">Serviço de Jardinagem</h2>
+              <a href="seuanuncio.html" class="link-topo">Detalhes</a>
+            </div>
+            <p class="local">Rua das Flores, 456 - Bairro Verde</p>
+            <div class="status-switch">
+              <label class="switch">
+                <input type="checkbox" checked onchange="toggleStatus(this)">
+                <span class="slider"></span>
+              </label>
+              <span class="status-label">Ativo</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+
+      <div class="acoes">
+        <a href="castroservico.html" class="botao-servico">Criar Serviço</a>
+
+        <div class="curriculo">
+          <label for="curriculo">Atualizar Currículo:</label>
+          <input type="file" id="curriculo" accept=".pdf,.doc,.docx"/>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="img/logo.png" alt="Logo Pinhão Works" />
+      </div>
+      <div class="footer-info">
+        <p>&copy; 2025 Pinhão Works. Todos os direitos reservados.</p>
+        <p>Contato: <a href="mailto:contato@pinhaoworks.com">contato@pinhaoworks.com</a></p>
+        <p class="slogan">A Pinhão Works é a plataforma número 1 para você encontrar um trabalho de forma rápida e fácil.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+  <script>
+    // Preview da foto de perfil
+    document.getElementById("upload-foto").addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("preview-img").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+<script>
+    const toggleBtn = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+  
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+  
+    // Fecha o menu se clicar fora dele
+    document.addEventListener("click", function (event) {
+      const isClickInside = sidebar.contains(event.target) || toggleBtn.contains(event.target);
+      if (!isClickInside) {
+        sidebar.classList.remove("active");
+      }
+    });
+  </script>
+
+<script>
+  function toggleStatus(checkbox) {
+    const label = checkbox.closest(".status-switch").querySelector(".status-label");
+    label.textContent = checkbox.checked ? "Ativo" : "Desativado";
+  }
+</script>
+
+
+</html>

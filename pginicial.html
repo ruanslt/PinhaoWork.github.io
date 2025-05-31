@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pinhão Work</title>
+  <link rel="stylesheet" href="css/pginicial.css"/>
+</head>
+
+
+
+
+<body class="body2">
+ 
+  
+  <header class="top-bar">
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+    <div class="logo3">
+      <a href="pginicial.html">
+        <img class="logo33" src="img/logo.png" alt="Logo" />
+      </a>
+    </div>
+  </header>
+
+  <!-- Menu lateral -->
+  <nav class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="pginicial.html">Página Inicial</a></li>
+
+      <li><a href="meuperfil.html">Meu Perfil</a></li>
+      <li><a href="castroservico.html">Cadastrar Serviço</a></li>
+      <li><a href="#">Ajuda</a></li>
+      <li class="redes">Redes Sociais</li>
+      <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+      <li><a href="#">Facebook</a></li>
+    </ul>
+  </nav>
+
+
+  <div class="filtros">
+    <div class="campo">
+      <label class="label2" for="local">Local</label>
+      <input class="input2" type="text" id="local" />
+    </div>
+
+    <div class="campo">
+      <label class="label2" for="valor">Valor</label>
+      <input class="input2" type="text" id="valor" />
+    </div>
+
+    <div class="campo">
+      <label class="label2" for="senha">Horário</label>
+      <input class="input2" type="password" id="senha" />
+    </div>
+
+    <a class="entrar" href="pginicial.html">Filtrar</a>
+  </div>
+
+  <div class="cards-container">
+    <!-- Card template -->
+  
+
+    <!-- Clone conforme necessário -->
+    <div class="card">
+      <img src="img/logo.png" alt="Imagem do card" class="card-img" />
+      <div class="card-info">
+        <div class="card-header">
+          <h2 class="titulo-card">Local</h2>
+          <a href="#" class="link-topo">Detalhes</a>
+        </div>
+        <p class="local">Rua Exemplo, 123 - Cidade</p>
+        <a href="" class="entrar">EU QUERO!</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/logo.png" alt="Imagem do card" class="card-img" />
+      <div class="card-info">
+        <div class="card-header">
+          <h2 class="titulo-card">Local</h2>
+          <a href="#" class="link-topo">Detalhes</a>
+        </div>
+        <p class="local">Rua Exemplo, 123 - Cidade</p>
+        <a href="" class="entrar">EU QUERO!</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/logo.png" alt="Imagem do card" class="card-img" />
+      <div class="card-info">
+        <div class="card-header">
+          <h2 class="titulo-card">Local</h2>
+          <a href="#" class="link-topo">Detalhes</a>
+        </div>
+        <p class="local">Rua Exemplo, 123 - Cidade</p>
+        <a href="" class="entrar">EU QUERO!</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/logo.png" alt="Imagem do card" class="card-img" />
+      <div class="card-info">
+        <div class="card-header">
+          <h2 class="titulo-card">Local</h2>
+          <a href="#" class="link-topo">Detalhes</a>
+        </div>
+        <p class="local">Rua Exemplo, 123 - Cidade</p>
+        <a href="" class="entrar">EU QUERO!</a>
+      </div>
+    </div>
+
+  
+
+    <!-- Modal -->
+<div class="modal-overlay" id="modal-overlay"></div>
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="fecharModal()">&times;</span>
+    <h2>Serviço: Pintura de Parede</h2>
+    <p><strong>Local:</strong> Rua Exemplo, 123 - Cidade</p>
+    <p><strong>Horário:</strong> Das 08:00 até 17:00</p>
+    <p><strong>Valor/hora:</strong> R$ 25,00</p>
+    <p><strong>Requisitos:</strong> Experiência com pintura, escada própria</p>
+
+    <div class="switch-container">
+      <label class="switch">
+        <input type="checkbox" id="ofertar-switch" onchange="toggleOfertarValor()">
+        <span class="slider"></span>
+      </label>
+      <span class="status-label">Ofertar outro valor</span>
+    </div>
+
+    <div id="campo-oferta" style="display: none; margin-top: 10px;">
+      <label for="valor-hora">Seu valor/hora:</label>
+      <input type="number" id="valor-hora" min="1" step="0.5" placeholder="R$" />
+    </div>
+
+    <button class="btn-candidatar" onclick="candidatar()">Se candidatar para serviço</button>
+  </div>
+</div>
+
+
+  </div>
+
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="img/logo.png" alt="Logo Pinhão Works" />
+      </div>
+      <div class="footer-info">
+        <p>&copy; 2025 Pinhão Works. Todos os direitos reservados.</p>
+        <p>Contato: <a href="mailto:contato@pinhaoworks.com">contato@pinhaoworks.com</a></p>
+        <p class="slogan">A Pinhão Works é a plataforma número 1 para você encontrar um trabalho de forma rápida e fácil.</p>
+      </div>
+    </div>
+  </footer>
+  
+
+</body>
+
+
+<script>
+  function abrirModal() {
+    document.getElementById("modal").style.display = "block";
+    document.getElementById("modal-overlay").style.display = "block";
+  }
+
+  function fecharModal() {
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("modal-overlay").style.display = "none";
+  }
+
+  function toggleOfertarValor() {
+    const campo = document.getElementById("campo-oferta");
+    campo.style.display = document.getElementById("ofertar-switch").checked ? "block" : "none";
+  }
+
+  function candidatar() {
+    const ofertar = document.getElementById("ofertar-switch").checked;
+    const valor = document.getElementById("valor-hora").value;
+    
+    if (ofertar && !valor) {
+      alert("Por favor, informe seu valor/hora.");
+    } else {
+      alert("Candidatura enviada com sucesso!");
+      fecharModal();
+    }
+  }
+
+  // Ativa modal ao clicar em "EU QUERO!"
+  document.querySelectorAll(".entrar").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      abrirModal();
+    });
+  });
+</script>
+
+
+<script>
+  const toggleBtn = document.getElementById("menu-toggle");
+  const sidebar = document.getElementById("sidebar");
+
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+  });
+
+  // Fecha o menu se clicar fora dele
+  document.addEventListener("click", function (event) {
+    const isClickInside = sidebar.contains(event.target) || toggleBtn.contains(event.target);
+    if (!isClickInside) {
+      sidebar.classList.remove("active");
+    }
+  });
+</script>
+
+</html>

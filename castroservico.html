@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oferecer Serviço - Pinhão Work</title>
+  <link rel="stylesheet" href="css/cadastroservico.css" />
+</head>
+<body class="body2">
+
+  <header class="top-bar">
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+    <div class="logo3">
+      <a href="pginicial.html">
+        <img class="logo33" src="img/logo.png" alt="Logo" />
+      </a>
+    </div>
+  </header>
+
+  <!-- Menu lateral -->
+  <nav class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="pginicial.html">Página Inicial</a></li>
+
+      <li><a href="meuperfil.html">Meu Perfil</a></li>
+      <li><a href="castroservico.html">Cadastrar Serviço</a></li>
+      <li><a href="#">Ajuda</a></li>
+      <li class="redes">Redes Sociais</li>
+      <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+      <li><a href="#">Facebook</a></li>
+    </ul>
+  </nav>
+    
+
+  <div class="formulario">
+    <div class="campo">
+      <label for="nomeServico">Nome do Serviço</label>
+      <input type="text" id="nomeServico" placeholder="Ex: Pintura, Jardinagem..." />
+    </div>
+
+    <div class="campo">
+      <label for="localServico">Local</label>
+      <input type="text" id="localServico" placeholder="Cidade/Bairro" />
+    </div>
+
+    <div class="campo">
+      <label for="valorHora">Valor por Hora (R$)</label>
+      <input type="number" id="valorHora" placeholder="Ex: 50" />
+    </div>
+
+    <div class="campo">
+      <label for="horarioInicio">Horário - Início</label>
+      <input type="time" id="horarioInicio" />
+    </div>
+
+    <div class="campo">
+      <label for="horarioFim">Horário - Fim</label>
+      <input type="time" id="horarioFim" />
+    </div>
+
+    <div class="campo">
+      <label for="fotoServico">Foto</label>
+      <input type="file" id="fotoServico" accept="image/*" />
+    </div>
+
+    <a class="entrar" href="pginicial.html">Cadastrar Serviço</a>
+  </div>
+
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="img/logo.png" alt="Logo Pinhão Works" />
+      </div>
+      <div class="footer-info">
+        <p>&copy; 2025 Pinhão Works. Todos os direitos reservados.</p>
+        <p>Contato: <a href="mailto:contato@pinhaoworks.com">contato@pinhaoworks.com</a></p>
+        <p class="slogan">A Pinhão Works é a plataforma número 1 para você encontrar um trabalho de forma rápida e fácil.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+<script>
+  const toggleBtn = document.getElementById("menu-toggle");
+  const sidebar = document.getElementById("sidebar");
+
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+  });
+
+  // Fecha o menu se clicar fora dele
+  document.addEventListener("click", function (event) {
+    const isClickInside = sidebar.contains(event.target) || toggleBtn.contains(event.target);
+    if (!isClickInside) {
+      sidebar.classList.remove("active");
+    }
+  });
+</script>
+
+</html>
