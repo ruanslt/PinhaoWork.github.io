@@ -63,7 +63,20 @@
       <input type="file" id="fotoServico" accept="image/*" />
     </div>
 
-    <a class="entrar" href="pginicial.html">Cadastrar Serviço</a>
+<div class="campo">
+  <label for="tipoServico">Tipo de Serviço</label>
+  <div class="switch-container">
+    <label class="switch">
+      <input type="checkbox" id="tipoServico" />
+      <span class="slider"></span>
+    </label>
+<!-- já está no HTML acima -->
+<span id="switchLabel">Vou prestar serviço</span>
+  </div>
+</div>
+
+
+<button class="entrar" id="btnCadastrarServico" type="button">Cadastrar Serviço</button>
   </div>
 
 
@@ -96,6 +109,78 @@
       sidebar.classList.remove("active");
     }
   });
+
+
+  
 </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCZBzyR4TxWE5xaIBEifnnggeqMHkJ-UX8",
+    authDomain: "pinhaowork.firebaseapp.com",
+    projectId: "pinhaowork",
+    storageBucket: "pinhaowork.appspot.com",
+    messagingSenderId: "889354240544",
+    appId: "1:889354240544:web:afeb4484cdc0edd7a6b245",
+    measurementId: "G-84VB06XMWK"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Cadastrar serviço
+  document.getElementById("btnCadastrarServico").addEventListener("click", async () => {
+    const usuario = JSON.parse(sessionStorage.getItem("usuarioLogado"));
+    if (!usuario) {
+      alert("Sessão expirada. Faça login novamente.");
+      window.location.href = "index.html";
+      return;
+    }
+
+    const nomeServico = document.getElementById("nomeServico").value;
+    const local = document.getElementById("localServico").value;
+    const valorHora = parseFloat(document.getElementById("valorHora").value);
+    const horarioInicio = document.getElementById("horarioInicio").value;
+    const horarioFim = document.getElementById("horarioFim").value;
+    const fotoInput = document.getElementById("fotoServico");
+    const prestar = document.getElementById("tipoServico").checked;
+
+    // Validação simples
+    if (!nomeServico || !local || isNaN(valorHora) || !horarioInicio || !horarioFim) {
+      alert("Preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    let fotoUrl = "";
+    // (futuramente: você pode fazer upload da imagem para o Firebase Storage aqui)
+
+    try {
+      await addDoc(collection(db, "servicos"), {
+        nomeServico,
+        local,
+        valorHora,
+        horarioInicio,
+        horarioFim,
+        fotoUrl,
+        ativo: true,
+        nome: `${usuario.nome} ${usuario.sobrenome}`,
+        telefone: usuario.telefone || "", // ✅ telefone adicionado aqui
+        idUsuario: usuario.uid,
+        criadoEm: serverTimestamp(),
+        prestar
+      });
+
+      alert("Serviço cadastrado com sucesso!");
+      window.location.href = "pginicial.html";
+    } catch (error) {
+      console.error("Erro ao cadastrar serviço:", error);
+      alert("Erro ao cadastrar o serviço.");
+    }
+  });
+</script>
+
 
 </html>

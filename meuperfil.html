@@ -19,17 +19,17 @@
     
       <!-- Menu lateral -->
       <nav class="sidebar" id="sidebar">
-        <ul>
-          <li><a href="pginicial.html">Página Inicial</a></li>
+    <ul>
+      <li><a href="pginicial.html">Página Inicial</a></li>
 
-          <li><a href="meuperfil.html">Meu Perfil</a></li>
-          <li><a href="castroservico.html">Cadastrar Serviço</a></li>
-          <li><a href="#">Ajuda</a></li>
-          <li class="redes">Redes Sociais</li>
-          <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
-        </ul>
-      </nav>
+      <li><a href="meuperfil.html">Meu Perfil</a></li>
+      <li><a href="castroservico.html">Cadastrar Serviço</a></li>
+      <li><a href="#">Ajuda</a></li>
+      <li class="redes">Redes Sociais</li>
+      <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+      <li><a href="#">Facebook</a></li>
+    </ul>
+  </nav>
     
 
   <div class="container">
@@ -41,8 +41,9 @@
         <button onclick="document.getElementById('upload-foto').click()">Trocar Foto</button>
       </div>
       <div class="info-usuario">
-        <h2>Nome do Usuário</h2>
-        <p>Entrou em: 20/01/2024</p>
+       <h2 id="nome-usuario">Nome do Usuário</h2>
+       <p id="data-criacao">Entrou em: --/--/----</p>
+
         <div class="estatisticas">
           <span><strong>5</strong> Serviços Criados</span>
           <span><strong>8</strong> Trabalhos Realizados</span>
@@ -52,15 +53,16 @@
 
     <!-- Bio e histórico -->
     <section class="conteudo">
-      <div class="bio">
-        <h3>Bio</h3>
-        <textarea placeholder="Fale um pouco sobre você..."></textarea>
-      </div>
+     <div class="bio">
+  <h3>Bio</h3>
+  <div id="bio" class="bio-texto"></div>
+</div>
+
 
       <div class="historico">
         <h3>Histórico de Serviços Realizados</h3>
         <ul>
-          <li>✅ Pintura de parede em Curitiba - Fev/2024</li>
+          <li>📝 ------- - ---/---</li>
           <li>✅ Faxina residencial - Mar/2024</li>
           <li>📝 Encanamento ofertado - aguardando aprovação</li>
         </ul>
@@ -68,52 +70,12 @@
 
       <section class="trabalhos-ativos">
         <h3>Trabalhos Que Você Oferta Ativos</h3>
-        <div class="card">
-          <img src="img/logo.png" alt="Imagem do card" class="card-img" />
-          <div class="card-info">
-            <div class="card-header">
-              <h2 class="titulo-card">Serviço de Jardinagem</h2>
-              <a href="seuanuncio.html" class="link-topo">Detalhes</a>
-            </div>
-            <p class="local">Rua das Flores, 456 - Bairro Verde</p>
-            <div class="status-switch">
-              <label class="switch">
-                <input type="checkbox" checked onchange="toggleStatus(this)">
-                <span class="slider"></span>
-              </label>
-              <span class="status-label">Ativo</span>
-            </div>
-          </div>
-        </div>
+      
 
-        <div class="card">
-          <img src="img/logo.png" alt="Imagem do card" class="card-img" />
-          <div class="card-info">
-            <div class="card-header">
-              <h2 class="titulo-card">Serviço de Jardinagem</h2>
-              <a href="seuanuncio.html" class="link-topo">Detalhes</a>
-            </div>
-            <p class="local">Rua das Flores, 456 - Bairro Verde</p>
-            <div class="status-switch">
-              <label class="switch">
-                <input type="checkbox" checked onchange="toggleStatus(this)">
-                <span class="slider"></span>
-              </label>
-              <span class="status-label">Ativo</span>
-            </div>
-          </div>
-        </div>
       </section>
       
 
-      <div class="acoes">
-        <a href="castroservico.html" class="botao-servico">Criar Serviço</a>
-
-        <div class="curriculo">
-          <label for="curriculo">Atualizar Currículo:</label>
-          <input type="file" id="curriculo" accept=".pdf,.doc,.docx"/>
-        </div>
-      </div>
+     
     </section>
   </div>
 
@@ -133,41 +95,131 @@
 
 </body>
 
-  <script>
-    // Preview da foto de perfil
-    document.getElementById("upload-foto").addEventListener("change", function () {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          document.getElementById("preview-img").src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  </script>
 <script>
-    const toggleBtn = document.getElementById("menu-toggle");
-    const sidebar = document.getElementById("sidebar");
-  
-    toggleBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("active");
-    });
-  
-    // Fecha o menu se clicar fora dele
-    document.addEventListener("click", function (event) {
-      const isClickInside = sidebar.contains(event.target) || toggleBtn.contains(event.target);
-      if (!isClickInside) {
-        sidebar.classList.remove("active");
-      }
-    });
-  </script>
+  const toggleBtn = document.getElementById("menu-toggle");
+  const sidebar = document.getElementById("sidebar");
 
-<script>
-  function toggleStatus(checkbox) {
-    const label = checkbox.closest(".status-switch").querySelector(".status-label");
-    label.textContent = checkbox.checked ? "Ativo" : "Desativado";
-  }
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+  });
+
+  // Fecha o menu se clicar fora dele
+  document.addEventListener("click", function (event) {
+    const isClickInside = sidebar.contains(event.target) || toggleBtn.contains(event.target);
+    if (!isClickInside) {
+      sidebar.classList.remove("active");
+    }
+  });
+
+
+  
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore,
+    collection,
+    query,
+    where,
+    getDocs,
+    doc,
+    updateDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCZBzyR4TxWE5xaIBEifnnggeqMHkJ-UX8",
+    authDomain: "pinhaowork.firebaseapp.com",
+    projectId: "pinhaowork",
+    storageBucket: "pinhaowork.appspot.com",
+    messagingSenderId: "889354240544",
+    appId: "1:889354240544:web:afeb4484cdc0edd7a6b245",
+    measurementId: "G-84VB06XMWK"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const containerServicos = document.querySelector(".trabalhos-ativos");
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "index.html";
+      return;
+    }
+
+    // Nome, data, bio
+    const usuario = JSON.parse(sessionStorage.getItem("usuarioLogado"));
+    document.getElementById("nome-usuario").textContent = `${usuario.nome} ${usuario.sobrenome}`;
+    
+    if (usuario.criadoEm?.seconds) {
+      const dataCriacao = new Date(usuario.criadoEm.seconds * 1000);
+      document.getElementById("data-criacao").textContent = `Entrou em: ${dataCriacao.toLocaleDateString("pt-BR")}`;
+    }
+
+    document.getElementById("bio").textContent = `Formação: ${usuario.formacao || ""}\nExperiência: ${usuario.experiencia || ""}`;
+
+    // Busca serviços do usuário logado
+    try {
+      const servicosRef = collection(db, "servicos");
+      const q = query(servicosRef, where("idUsuario", "==", user.uid));
+      const snapshot = await getDocs(q);
+
+      const container = containerServicos.querySelector("section.card-list") || document.createElement("section");
+      container.className = "card-list";
+      container.innerHTML = ""; // limpa se já tiver
+
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+          <img src="${data.fotoURL || 'img/logo.png'}" alt="Imagem do card" class="card-img" />
+          <div class="card-info">
+            <div class="card-header">
+              <h2 class="titulo-card">${data.nomeServico}</h2>
+              <a href="seuanuncio.html?id=${docSnap.id}" class="link-topo">Detalhes</a>
+            </div>
+            <p class="local">${data.local}</p>
+            <div class="status-switch">
+              <label class="switch">
+                <input type="checkbox" ${data.ativo ? "checked" : ""} data-id="${docSnap.id}">
+                <span class="slider"></span>
+              </label>
+              <span class="status-label">${data.ativo ? "Ativo" : "Desativado"}</span>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      containerServicos.appendChild(container);
+
+      // Evento para alternar o status
+      container.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+        checkbox.addEventListener("change", async function () {
+          const id = this.dataset.id;
+          const ativo = this.checked;
+
+          const servicoRef = doc(db, "servicos", id);
+          await updateDoc(servicoRef, { ativo });
+
+          const statusLabel = this.closest(".status-switch").querySelector(".status-label");
+          statusLabel.textContent = ativo ? "Ativo" : "Desativado";
+        });
+      });
+
+    } catch (erro) {
+      console.error("Erro ao buscar serviços:", erro);
+    }
+  });
 </script>
 
 

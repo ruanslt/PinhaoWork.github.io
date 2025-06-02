@@ -26,7 +26,7 @@
 
     <br><br>
 
-    <a class="entrar" href="pginicial.html">Entrar</a>
+    <button class="entrar">Entrar</button>
 
     <div class="links-auxiliares">
         <a href="#">Esqueci a senha</a>
@@ -38,4 +38,59 @@
 
 
 </body>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCZBzyR4TxWE5xaIBEifnnggeqMHkJ-UX8",
+    authDomain: "pinhaowork.firebaseapp.com",
+    projectId: "pinhaowork",
+    storageBucket: "pinhaowork.firebasestorage.app",
+    messagingSenderId: "889354240544",
+    appId: "1:889354240544:web:afeb4484cdc0edd7a6b245",
+    measurementId: "G-84VB06XMWK"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  document.querySelector(".entrar").addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("login").value;
+    const senha = document.getElementById("senha").value;
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+      const user = userCredential.user;
+
+      // Busca dados do Firestore
+      const docRef = doc(db, "usuarios", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const dadosUsuario = docSnap.data();
+        dadosUsuario.uid = user.uid;
+
+        // Armazena os dados na sessão
+        sessionStorage.setItem("usuarioLogado", JSON.stringify(dadosUsuario));
+
+        // Redireciona para a página inicial
+        window.location.href = "pginicial.html";
+      } else {
+        alert("Usuário autenticado, mas dados não encontrados no banco.");
+      }
+
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      alert("Login falhou. Verifique email e senha.");
+    }
+  });
+</script>
+
 </html>

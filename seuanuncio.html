@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/seuanuncio.css">
 </head>
 <body class="body2">
+    <div class="page-container">
+
     
   <header class="top-bar">
     <button class="menu-toggle" id="menu-toggle">&#9776;</button>
@@ -70,77 +72,7 @@
         <label style="font-size: 30px; margin-left: 10px;" for="">Interessados</label>
 
 
-        <div class="card-horizontal">
-            <div class="perfil">
-              <img src="img/logo.png" alt="Foto de Perfil" class="foto-perfil">
-            </div>
-          
-            <div class="informacoes">
-              <div class="topo">
-                <div class="nome-nivel">
-                  <h2 class="nome">Nome da Pessoa</h2>
-                  <p class="nivel">Nível da Pessoa</p>
-                </div>
-                <p class="data">Data de entrada: 01/01/2020</p>
-              </div>
-          
-              <p class="sobre-mim">Aqui vai um texto sobre a pessoa, explicando o que ela deseja ou um pouco sobre a sua história e experiência.</p>
-          
-              <div class="botoes">
-                <button class="btn visualizar">Visualizar Currículo</button>
-                <button class="btn ignorar">Ignorar</button>
-                <button class="btn contato">Entrar em Contato</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-horizontal">
-            <div class="perfil">
-              <img src="img/logo.png" alt="Foto de Perfil" class="foto-perfil">
-            </div>
-          
-            <div class="informacoes">
-              <div class="topo">
-                <div class="nome-nivel">
-                  <h2 class="nome">Nome da Pessoa</h2>
-                  <p class="nivel">Nível da Pessoa</p>
-                </div>
-                <p class="data">Data de entrada: 01/01/2020</p>
-              </div>
-          
-              <p class="sobre-mim">Aqui vai um texto sobre a pessoa, explicando o que ela deseja ou um pouco sobre a sua história e experiência.</p>
-          
-              <div class="botoes">
-                <button class="btn visualizar">Visualizar Currículo</button>
-                <button class="btn ignorar">Ignorar</button>
-                <button class="btn contato">Entrar em Contato</button>
-              </div>
-            </div>
-          </div>
-           
-          <div class="card-horizontal">
-            <div class="perfil">
-              <img src="img/logo.png" alt="Foto de Perfil" class="foto-perfil">
-            </div>
-          
-            <div class="informacoes">
-              <div class="topo">
-                <div class="nome-nivel">
-                  <h2 class="nome">Nome da Pessoa</h2>
-                  <p class="nivel">Nível da Pessoa</p>
-                </div>
-                <p class="data">Data de entrada: 01/01/2020</p>
-              </div>
-          
-              <p class="sobre-mim">Aqui vai um texto sobre a pessoa, explicando o que ela deseja ou um pouco sobre a sua história e experiência.</p>
-          
-              <div class="botoes">
-                <button class="btn visualizar">Visualizar Currículo</button>
-                <button class="btn ignorar">Ignorar</button>
-                <button class="btn contato">Entrar em Contato</button>
-              </div>
-            </div>
-          </div>
+       
           
 
     </div>
@@ -160,6 +92,8 @@
       <p>Contato: <a href="mailto:contato@pinhaoworks.com">contato@pinhaoworks.com</a></p>
       <p class="slogan">A Pinhão Works é a plataforma número 1 para você encontrar um trabalho de forma rápida e fácil.</p>
     </div>
+  </div>
+
   </div>
 </footer>
   
@@ -182,5 +116,114 @@
     }
   });
 </script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCZBzyR4TxWE5xaIBEifnnggeqMHkJ-UX8",
+  authDomain: "pinhaowork.firebaseapp.com",
+  projectId: "pinhaowork",
+  storageBucket: "pinhaowork.appspot.com",
+  messagingSenderId: "889354240544",
+  appId: "1:889354240544:web:afeb4484cdc0edd7a6b245",
+  measurementId: "G-84VB06XMWK"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Pega o ID do serviço da URL
+const urlParams = new URLSearchParams(window.location.search);
+const servicoId = urlParams.get("id");
+
+const filtros3 = document.querySelector(".filtros3");
+const colunaDireita = document.querySelector(".coluna-direita");
+
+// 1. Carregar dados do serviço
+const carregarServico = async () => {
+  const docRef = doc(db, "servicos", servicoId);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const servico = docSnap.data();
+
+    filtros3.innerHTML = `
+      <div class="card">
+        <img src="${servico.fotoURL || 'img/logo.png'}" alt="Imagem do card" class="card-img">
+        <div class="card-info">
+          <div class="card-header">
+            <h2 class="titulo-card">${servico.nomeServico}</h2>
+            <a href="#" class="link-topo">Detalhes</a>
+          </div>
+          <p class="local">${servico.local}</p>
+        </div>
+      </div>
+    `;
+  } else {
+    filtros3.innerHTML = "<p>Serviço não encontrado.</p>";
+  }
+};
+
+// 2. Carregar interessados
+const carregarInteressados = async () => {
+  const interessadosRef = collection(db, "servicos", servicoId, "interessados");
+  const snapshot = await getDocs(interessadosRef);
+
+  if (snapshot.empty) {
+    colunaDireita.innerHTML += "<p style='margin-left: 10px;'>Nenhum interessado no momento.</p>";
+    return;
+  }
+
+  snapshot.forEach(docSnap => {
+    const interessado = docSnap.data();
+    const dataEnvio = interessado.dataEnvio?.seconds
+      ? new Date(interessado.dataEnvio.seconds * 1000).toLocaleDateString("pt-BR")
+      : "Data não informada";
+
+    const card = document.createElement("div");
+    card.className = "card-horizontal";
+    card.innerHTML = `
+      <div class="perfil">
+        <img src="${interessado.fotoURL || 'img/logo.png'}" alt="Foto de Perfil" class="foto-perfil">
+      </div>
+      <div class="informacoes">
+        <div class="topo">
+          <div class="nome-nivel">
+            <h2 class="nome">${interessado.nome}</h2>
+            <p class="nivel">${interessado.nivel || "Nível não informado"}</p>
+          </div>
+          <p class="data">Data de envio: ${dataEnvio}</p>
+        </div>
+        <p class="sobre-mim">Formação: ${interessado.formacao || "Não informado"}<br>Experiência: ${interessado.experiencia || "Não informado"}</p>
+        <div class="botoes">
+          <button class="btn ignorar">Ignorar</button>
+          <a href="https://wa.me/${interessado.telefone}?text=${encodeURIComponent("Olá, você demonstrou interesse no trabalho que anunciei e gostei do seu currículo. Queria continuar a negociação.")}" target="_blank" class="btn contato">Entrar em Contato</a>
+        </div>
+      </div>
+    `;
+
+    // Evento de ignorar
+    card.querySelector(".ignorar").addEventListener("click", async () => {
+      await deleteDoc(doc(db, "servicos", servicoId, "interessados", docSnap.id));
+      card.remove();
+    });
+
+    colunaDireita.appendChild(card);
+  });
+};
+
+carregarServico();
+carregarInteressados();
+</script>
+
 
 </html>

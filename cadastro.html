@@ -28,6 +28,11 @@
                 <input type="email" id="email">
             </div>
 
+            <div class="senha">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha">
+            </div>
+
             <div class="campo">
                 <label for="celular">Celular</label>
                 <input type="text" id="celular">
@@ -49,7 +54,7 @@
                 <a class="entrar" href="#">Anexar Currículo</a>
             </div>
 
-            <a class="entrar" href="pginicial.html">Criar</a>
+            <a class="entrar" id="btnCadastrar" href="#">Criar</a>
         </div>
     </div>
 
@@ -67,4 +72,62 @@
       </footer>
 
 </body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+  import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCZBzyR4TxWE5xaIBEifnnggeqMHkJ-UX8",
+    authDomain: "pinhaowork.firebaseapp.com",
+    projectId: "pinhaowork",
+    storageBucket: "pinhaowork.firebasestorage.app",
+    messagingSenderId: "889354240544",
+    appId: "1:889354240544:web:afeb4484cdc0edd7a6b245",
+    measurementId: "G-84VB06XMWK"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  document.getElementById("btnCadastrar").addEventListener("click", async function (e) {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const sobrenome = document.getElementById("sobrenome").value;
+    const email = document.getElementById("email").value;
+    const celular = document.getElementById("celular").value;
+    const formacao = document.getElementById("formacao").value;
+    const experiencia = document.getElementById("experiencia").value;
+    const senha = document.getElementById("senha").value; // Adicione um campo de senha no seu HTML
+
+    try {
+      // Cria o usuário na autenticação
+      const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+      const uid = userCredential.user.uid;
+
+      // Cria o documento no Firestore com o UID como ID
+      await setDoc(doc(db, "usuarios", uid), {
+        nome,
+        sobrenome,
+        email,
+        celular,
+        formacao,
+        experiencia,
+        criadoEm: serverTimestamp()
+      });
+
+      alert("Usuário cadastrado com sucesso!");
+      window.location.href = "index.html";
+    } catch (error) {
+      console.error("Erro ao cadastrar: ", error);
+      alert("Erro ao cadastrar. Veja o console.");
+    }
+  });
+</script>
+
 </html>

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pinhão Work</title>
-  <link rel="stylesheet" href="css/pginicial.css"/>
+  <link rel="stylesheet" href="css/pginicial.css" />
 </head>
 
 
 
 
 <body class="body2">
- 
-  
+
+
   <header class="top-bar">
     <button class="menu-toggle" id="menu-toggle">&#9776;</button>
     <div class="logo3">
@@ -37,7 +38,7 @@
   </nav>
 
 
-  <div class="filtros">
+   <!---- <div class="filtros">
     <div class="campo">
       <label class="label2" for="local">Local</label>
       <input class="input2" type="text" id="local" />
@@ -50,18 +51,20 @@
 
     <div class="campo">
       <label class="label2" for="senha">Horário</label>
-      <input class="input2" type="password" id="senha" />
+      <input class="input2" type="text" id="horario" />
+
     </div>
 
-    <a class="entrar" href="pginicial.html">Filtrar</a>
+    <a class="entrar" href="#">Filtrar</a>
   </div>
 
+    -->
   <div class="cards-container">
     <!-- Card template -->
-  
+
 
     <!-- Clone conforme necessário -->
-    <div class="card">
+    <!-- <div class="card">
       <img src="img/logo.png" alt="Imagem do card" class="card-img" />
       <div class="card-info">
         <div class="card-header">
@@ -72,69 +75,36 @@
         <a href="" class="entrar">EU QUERO!</a>
       </div>
     </div>
-    <div class="card">
-      <img src="img/logo.png" alt="Imagem do card" class="card-img" />
-      <div class="card-info">
-        <div class="card-header">
-          <h2 class="titulo-card">Local</h2>
-          <a href="#" class="link-topo">Detalhes</a>
-        </div>
-        <p class="local">Rua Exemplo, 123 - Cidade</p>
-        <a href="" class="entrar">EU QUERO!</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/logo.png" alt="Imagem do card" class="card-img" />
-      <div class="card-info">
-        <div class="card-header">
-          <h2 class="titulo-card">Local</h2>
-          <a href="#" class="link-topo">Detalhes</a>
-        </div>
-        <p class="local">Rua Exemplo, 123 - Cidade</p>
-        <a href="" class="entrar">EU QUERO!</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="img/logo.png" alt="Imagem do card" class="card-img" />
-      <div class="card-info">
-        <div class="card-header">
-          <h2 class="titulo-card">Local</h2>
-          <a href="#" class="link-topo">Detalhes</a>
-        </div>
-        <p class="local">Rua Exemplo, 123 - Cidade</p>
-        <a href="" class="entrar">EU QUERO!</a>
-      </div>
-    </div>
+  -->
 
-  
 
     <!-- Modal -->
-<div class="modal-overlay" id="modal-overlay"></div>
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close-modal" onclick="fecharModal()">&times;</span>
-    <h2>Serviço: Pintura de Parede</h2>
-    <p><strong>Local:</strong> Rua Exemplo, 123 - Cidade</p>
-    <p><strong>Horário:</strong> Das 08:00 até 17:00</p>
-    <p><strong>Valor/hora:</strong> R$ 25,00</p>
-    <p><strong>Requisitos:</strong> Experiência com pintura, escada própria</p>
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="fecharModal()">&times;</span>
+        <h2>Serviço: Pintura de Parede</h2>
+        <p><strong>Local:</strong> Rua Exemplo, 123 - Cidade</p>
+        <p><strong>Horário:</strong> Das 08:00 até 17:00</p>
+        <p><strong>Valor/hora:</strong> R$ 25,00</p>
+        <p><strong>Requisitos:</strong> Experiência com pintura, escada própria</p>
 
-    <div class="switch-container">
-      <label class="switch">
-        <input type="checkbox" id="ofertar-switch" onchange="toggleOfertarValor()">
-        <span class="slider"></span>
-      </label>
-      <span class="status-label">Ofertar outro valor</span>
+        <div class="switch-container">
+          <label class="switch">
+            <input type="checkbox" id="ofertar-switch" onchange="toggleOfertarValor()">
+            <span class="slider"></span>
+          </label>
+          <span class="status-label">Ofertar outro valor</span>
+        </div>
+
+        <div id="campo-oferta" style="display: none; margin-top: 10px;">
+          <label for="valor-hora">Seu valor/hora:</label>
+          <input type="number" id="valor-hora" min="1" step="0.5" placeholder="R$" />
+        </div>
+
+        <button class="btn-candidatar" onclick="candidatar()">Se candidatar para serviço</button>
+      </div>
     </div>
-
-    <div id="campo-oferta" style="display: none; margin-top: 10px;">
-      <label for="valor-hora">Seu valor/hora:</label>
-      <input type="number" id="valor-hora" min="1" step="0.5" placeholder="R$" />
-    </div>
-
-    <button class="btn-candidatar" onclick="candidatar()">Se candidatar para serviço</button>
-  </div>
-</div>
 
 
   </div>
@@ -148,16 +118,22 @@
       <div class="footer-info">
         <p>&copy; 2025 Pinhão Works. Todos os direitos reservados.</p>
         <p>Contato: <a href="mailto:contato@pinhaoworks.com">contato@pinhaoworks.com</a></p>
-        <p class="slogan">A Pinhão Works é a plataforma número 1 para você encontrar um trabalho de forma rápida e fácil.</p>
+        <p class="slogan">A Pinhão Works é a plataforma número 1 para você encontrar um trabalho de forma rápida e
+          fácil.</p>
       </div>
     </div>
   </footer>
-  
+
 
 </body>
 
 
+
+
 <script>
+
+
+
   function abrirModal() {
     document.getElementById("modal").style.display = "block";
     document.getElementById("modal-overlay").style.display = "block";
@@ -176,7 +152,7 @@
   function candidatar() {
     const ofertar = document.getElementById("ofertar-switch").checked;
     const valor = document.getElementById("valor-hora").value;
-    
+
     if (ofertar && !valor) {
       alert("Por favor, informe seu valor/hora.");
     } else {
@@ -184,16 +160,7 @@
       fecharModal();
     }
   }
-
-  // Ativa modal ao clicar em "EU QUERO!"
-  document.querySelectorAll(".entrar").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      abrirModal();
-    });
-  });
 </script>
-
 
 <script>
   const toggleBtn = document.getElementById("menu-toggle");
@@ -203,7 +170,6 @@
     sidebar.classList.toggle("active");
   });
 
-  // Fecha o menu se clicar fora dele
   document.addEventListener("click", function (event) {
     const isClickInside = sidebar.contains(event.target) || toggleBtn.contains(event.target);
     if (!isClickInside) {
@@ -211,5 +177,169 @@
     }
   });
 </script>
+
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore,
+    collection,
+    query,
+    where,
+    orderBy,
+    getDocs,
+    doc,
+    setDoc,
+    getDoc,
+    Timestamp,
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCZBzyR4TxWE5xaIBEifnnggeqMHkJ-UX8",
+    authDomain: "pinhaowork.firebaseapp.com",
+    projectId: "pinhaowork",
+    storageBucket: "pinhaowork.appspot.com",
+    messagingSenderId: "889354240544",
+    appId: "1:889354240544:web:afeb4484cdc0edd7a6b245",
+    measurementId: "G-84VB06XMWK"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const cardsContainer = document.querySelector(".cards-container");
+  const modal = document.getElementById("modal");
+  let servicoSelecionadoId = null;
+  let prestarServico = false;
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "index.html";
+      return;
+    }
+
+    try {
+      const servicosRef = collection(db, "servicos");
+      const q = query(servicosRef, where("ativo", "==", true), orderBy("criadoEm", "desc"));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        const textoBotao = data.prestar ? "Entrar em contato" : "EU QUERO!";
+
+        card.innerHTML = `
+          <img src="${data.fotoURL || 'img/logo.png'}" alt="Imagem do card" class="card-img" />
+          <div class="card-info">
+            <div class="card-header">
+              <h2 class="titulo-card">${data.nomeServico}</h2>
+            </div>
+            <p class="local">${data.local}</p>
+            <a href="#" class="entrar" data-id="${docSnap.id}" data-prestar="${data.prestar}">${textoBotao}</a>
+          </div>
+        `;
+
+        cardsContainer.appendChild(card);
+      });
+
+      document.querySelectorAll(".entrar").forEach(btn => {
+        btn.addEventListener("click", async function (e) {
+          e.preventDefault();
+          servicoSelecionadoId = this.dataset.id;
+          prestarServico = this.dataset.prestar === "true";
+
+          const docRef = doc(db, "servicos", servicoSelecionadoId);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const servico = docSnap.data();
+
+            modal.querySelector("h2").textContent = `Serviço: ${servico.nomeServico}`;
+            modal.querySelector("p:nth-of-type(1)").innerHTML = `<strong>Local:</strong> ${servico.local}`;
+            modal.querySelector("p:nth-of-type(2)").innerHTML = `<strong>Horário:</strong> Das ${servico.horarioInicio} até ${servico.horarioFim}`;
+            modal.querySelector("p:nth-of-type(3)").innerHTML = `<strong>Valor/hora:</strong> R$ ${servico.valorHora}`;
+            modal.querySelector("p:nth-of-type(4)").innerHTML = `<strong>Ofertante:</strong> ${servico.nome}`;
+
+            const botaoModal = modal.querySelector(".btn-candidatar");
+            if (botaoModal) {
+              botaoModal.textContent = prestarServico ? "Entrar em contato" : "Se candidatar para serviço";
+              botaoModal.onclick = () => {
+                if (!prestarServico) {
+                  enviarCandidatura(user);
+                } else {
+                  const telefone = servico.telefone?.replace(/\D/g, "");
+                  if (telefone) {
+                    const mensagem = encodeURIComponent("Olá, vi seu anúncio no PinhaoWork e desejei entrar em contato para mais informações.");
+                    const link = `https://wa.me/55${telefone}?text=${mensagem}`;
+                    window.open(link, "_blank");
+                    fecharModal();
+                  } else {
+                    alert("Telefone do anunciante não disponível.");
+                  }
+                }
+              };
+
+              const campoOferta = document.getElementById("campo-oferta");
+              if (campoOferta) {
+                if (prestarServico) {
+                  campoOferta.style.display = "none";
+                  document.getElementById("ofertar-switch").checked = false;
+                } else {
+                  campoOferta.style.display = "block";
+                }
+              }
+            }
+
+            abrirModal();
+          }
+        });
+      });
+
+    } catch (error) {
+      console.error("Erro ao carregar serviços:", error);
+    }
+  });
+
+  async function enviarCandidatura(user) {
+    try {
+      const usuarioRef = doc(db, "usuarios", user.uid);
+      const usuarioSnap = await getDoc(usuarioRef);
+
+      if (!usuarioSnap.exists()) {
+        alert("Informações do usuário não encontradas.");
+        return;
+      }
+
+      const usuario = usuarioSnap.data();
+      const bio = `Formação: ${usuario.formacao || "N/A"} | Experiência: ${usuario.experiencia || "N/A"}`;
+
+      const interessadoRef = doc(db, "servicos", servicoSelecionadoId, "interessados", user.uid);
+
+      await setDoc(interessadoRef, {
+        nome: usuario.nome + " " + usuario.sobrenome,
+        telefone: usuario.telefone || "",
+        email: user.email,
+        dataEnvio: Timestamp.now(),
+        bio: bio
+      });
+
+      alert("Candidatura enviada com sucesso!");
+      fecharModal();
+    } catch (error) {
+      console.error("Erro ao enviar candidatura:", error);
+      alert("Ocorreu um erro. Tente novamente mais tarde.");
+    }
+  }
+</script>
+
+
 
 </html>
