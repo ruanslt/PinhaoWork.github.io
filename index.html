@@ -1,96 +1,416 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinhão Work</title>
-    <link rel="stylesheet" href="css/index.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nu - Conta</title>
+<style>
+  :root{
+    --nu-purple: #8A05BE;
+    --nu-purple-dark: #6A0090;
+    --nu-purple-light: #F2E5FA;
+    --text-dark: #1A1A1A;
+    --text-gray: #6B6B6B;
+    --border-light: #EDEDED;
+    --bg: #FFFFFF;
+  }
+
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+
+  body{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(160deg, #efe2f7, #d8c3ea 60%, #efe2f7);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 40px 16px;
+  }
+
+  /* Phone frame */
+  .phone{
+    width: 375px;
+    max-width: 100%;
+    height: 812px;
+    background: #fff;
+    border-radius: 44px;
+    border: 10px solid #111;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+    overflow: hidden;
+    position: relative;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .notch{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 26px;
+    background:#111;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    z-index: 10;
+  }
+
+  .status-bar{
+    height: 44px;
+    flex-shrink:0;
+    background: var(--nu-purple);
+  }
+
+  .app-scroll{
+    flex:1;
+    overflow-y:auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .app-scroll::-webkit-scrollbar{ display:none; }
+
+  /* Header */
+  .header{
+    background: var(--nu-purple);
+    padding: 4px 20px 36px 20px;
+  }
+
+  .header-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 6px 0 18px 0;
+  }
+
+  .avatar{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .avatar svg{ width:20px; height:20px; fill:#fff; }
+
+  .header-icons{
+    display:flex;
+    align-items:center;
+    gap: 18px;
+  }
+  .header-icons svg{
+    width: 22px;
+    height: 22px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 1.8;
+  }
+
+  .greeting{
+    color:#fff;
+    font-size: 22px;
+    font-weight: 600;
+    outline:none;
+    border-bottom: 1px dashed transparent;
+    cursor: text;
+    display:inline-block;
+    max-width: 100%;
+  }
+  .greeting:hover, .greeting:focus{
+    border-bottom: 1px dashed rgba(255,255,255,0.6);
+  }
+  .greeting-label{
+    color: rgba(255,255,255,0.85);
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  /* Account card */
+  .account-card{
+    background:#fff;
+    margin: -22px 16px 0 16px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(80, 20, 110, 0.12);
+    position: relative;
+    z-index: 2;
+    padding: 20px 20px 8px 20px;
+  }
+
+  .account-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom: 6px;
+  }
+  .account-title{
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .chevron{
+    width: 18px;
+    height: 18px;
+    stroke: #B5B5B5;
+    stroke-width: 2.2;
+    fill:none;
+  }
+
+  .balance{
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-dark);
+    outline:none;
+    border-bottom: 1px dashed transparent;
+    cursor:text;
+    display:inline-block;
+  }
+  .balance:hover, .balance:focus{
+    border-bottom: 1px dashed #C9A8DD;
+  }
+
+  .actions-row{
+    display:flex;
+    justify-content:space-between;
+    padding: 22px 4px 10px 4px;
+  }
+  .action-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 8px;
+    width: 64px;
+    cursor:pointer;
+  }
+  .action-circle{
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #F4F4F4;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: background .15s ease;
+  }
+  .action-item:hover .action-circle{
+    background: var(--nu-purple-light);
+  }
+  .action-circle svg{
+    width: 22px;
+    height: 22px;
+    stroke: var(--text-dark);
+    fill:none;
+    stroke-width: 1.7;
+  }
+  .action-label{
+    font-size: 12px;
+    color: var(--text-dark);
+    font-weight: 500;
+    text-align:center;
+  }
+
+  .divider{
+    height: 1px;
+    background: var(--border-light);
+    margin: 4px 0 0 0;
+  }
+
+  /* Cards row */
+  .row-link{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    padding: 16px 4px;
+    cursor:pointer;
+  }
+  .row-icon{
+    width: 22px;
+    height: 22px;
+    stroke: var(--text-dark);
+    fill:none;
+    stroke-width: 1.6;
+    flex-shrink:0;
+  }
+  .row-text{
+    flex:1;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .banner{
+    margin: 6px 16px 0 16px;
+    background: #F7F2FB;
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 13px;
+    color: var(--text-dark);
+    line-height: 1.45;
+  }
+  .banner b{ color: var(--nu-purple); }
+
+  /* Credit card section */
+  .section-card{
+    background:#fff;
+    margin: 18px 16px 0 16px;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    padding: 18px 20px 20px 20px;
+  }
+  .section-title-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom: 14px;
+  }
+  .section-icon{
+    width:20px;height:20px;stroke:var(--text-dark);fill:none;stroke-width:1.7;
+  }
+  .section-name{
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+  .section-sub{
+    font-size: 13px;
+    color: var(--text-gray);
+    margin-bottom: 2px;
+  }
+  .section-value{
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 14px;
+  }
+  .section-foot{
+    font-size: 13px;
+    color: var(--text-gray);
+  }
+
+  .bottom-pad{ height: 30px; }
+
+  .hint{
+    text-align:center;
+    color: #4a2a5e;
+    font-size: 13px;
+    margin-top: 18px;
+    max-width: 375px;
+  }
+</style>
 </head>
 <body>
-    
-    <div class="logo2">
-        <img class="logo" src="img/logo.png">
-    </div>
 
-    <div class="formulario">
-        <div class="campo">
-            <label for="login">Login</label>
-            <input type="text" id="login">
+  <div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="status-bar"></div>
+
+      <div class="app-scroll">
+        <div class="header">
+          <div class="header-top">
+            <div class="avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.5c-3.4 0-10 1.7-10 5.1V22h20v-2.4c0-3.4-6.6-5.1-10-5.1z"/></svg>
+            </div>
+            <div class="header-icons">
+              <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.2 2.4c-.9.3-1.7 1-1.7 2.1" stroke-linecap="round"/><circle cx="12" cy="17" r="0.3" fill="#fff"/></svg>
+              <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 6 10-6" stroke-linecap="round"/><circle cx="19" cy="6" r="4" fill="#8A05BE" stroke="#fff"/></svg>
+            </div>
+          </div>
+          <span class="greeting-label">Olá, </span><span class="greeting" contenteditable="true" id="userName">Ruan</span>
         </div>
 
-        <div class="campo">
-            <label for="senha">Senha</label>
-            <input type="password" id="senha">
+        <div class="account-card">
+          <div class="account-row">
+            <span class="account-title">Conta</span>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="balance" contenteditable="true" id="balance">R$ 211.356,98</div>
+
+          <div class="actions-row">
+            <div class="action-item">
+              <div class="action-circle">
+                <svg viewBox="0 0 24 24"><path d="M12 2l4 4-4 4-4-4 4-4zM12 14l4 4-4 4-4-4 4-4zM2 12l4-4 4 4-4 4-4-4zM14 12l4-4 4 4-4 4-4-4z"/></svg>
+              </div>
+              <div class="action-label">Pix</div>
+            </div>
+            <div class="action-item">
+              <div class="action-circle">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="2" height="18"/><rect x="7" y="3" width="1" height="18"/><rect x="10" y="3" width="3" height="18"/><rect x="15" y="3" width="1" height="18"/><rect x="18" y="3" width="2" height="18"/></svg>
+              </div>
+              <div class="action-label">Pagar</div>
+            </div>
+            <div class="action-item">
+              <div class="action-circle">
+                <svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="action-label">Transferir</div>
+            </div>
+            <div class="action-item">
+              <div class="action-circle">
+                <svg viewBox="0 0 24 24"><path d="M4 12h16M10 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="action-label">Depositar</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row-link">
+            <svg class="row-icon" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M4 9h16"/></svg>
+            <div class="row-text">Meus Cartões</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
         </div>
+
+        <div class="banner">
+          <b>Novidade!</b> Conheça a ferramenta de Controle de Gastos do Nubank.
+        </div>
+
+        <div class="section-card">
+          <div class="section-title-row">
+            <svg class="section-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="section-name">Cartão de crédito</div>
+          <div class="section-sub">Fatura atual</div>
+          <div class="section-value">R$ 3.094,00</div>
+          <div class="section-foot">Limite disponível de R$ 45.500,00</div>
+        </div>
+
+        <div class="bottom-pad"></div>
+      </div>
     </div>
 
-    <br><br>
+  </div>
 
-    <button class="entrar">Entrar</button>
-
-    <div class="links-auxiliares">
-        <a href="#">Esqueci a senha</a>
-        <a href="cadastro.html">Cadastrar</a>
-    </div>
-
-
-    <p class="copy">&copy; 2025 Pinhão Works. Todos os direitos reservados.</p>
-
-
-</body>
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCZBzyR4TxWE5xaIBEifnnggeqMHkJ-UX8",
-    authDomain: "pinhaowork.firebaseapp.com",
-    projectId: "pinhaowork",
-    storageBucket: "pinhaowork.firebasestorage.app",
-    messagingSenderId: "889354240544",
-    appId: "1:889354240544:web:afeb4484cdc0edd7a6b245",
-    measurementId: "G-84VB06XMWK"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  document.querySelector(".entrar").addEventListener("click", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("login").value;
-    const senha = document.getElementById("senha").value;
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-      const user = userCredential.user;
-
-      // Busca dados do Firestore
-      const docRef = doc(db, "usuarios", user.uid);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const dadosUsuario = docSnap.data();
-        dadosUsuario.uid = user.uid;
-
-        // Armazena os dados na sessão
-        sessionStorage.setItem("usuarioLogado", JSON.stringify(dadosUsuario));
-
-        // Redireciona para a página inicial
-        window.location.href = "pginicial.html";
-      } else {
-        alert("Usuário autenticado, mas dados não encontrados no banco.");
+<script>
+  // place caret cleanly when editing, select all text on focus for quick replace
+  function setupEditable(el){
+    el.addEventListener('focus', () => {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
+    el.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        el.blur();
       }
-
-    } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      alert("Login falhou. Verifique email e senha.");
-    }
-  });
+    });
+    el.addEventListener('blur', () => {
+      if(el.textContent.trim() === '') el.textContent = el.dataset.placeholder || '';
+    });
+  }
+  setupEditable(document.getElementById('userName'));
+  setupEditable(document.getElementById('balance'));
 </script>
 
+</body>
 </html>
