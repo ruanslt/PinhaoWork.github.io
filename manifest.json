@@ -1,0 +1,15 @@
+{
+  "name": "Nu",
+  "short_name": "Nu",
+  "display": "standalone",
+  "start_url": "/",
+  "background_color": "#8A05BE",
+  "theme_color": "#8A05BE",
+  "icons": [
+    {
+      "src": "nu.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
