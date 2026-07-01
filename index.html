@@ -1,417 +1,686 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Nu">
-
+  <meta charset="UTF-8">
   <link rel="apple-touch-icon" href="/nu.png">
-  <link rel="manifest" href="/manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nu - Conta</title>
+  <style>
+    :root {
+      --nu-purple: #8A05BE;
+      --nu-purple-dark: #6A0090;
+      --nu-purple-light: #F2E5FA;
+      --text-dark: #1A1A1A;
+      --text-gray: #6B6B6B;
+      --border-light: #EDEDED;
+      --bg: #FFFFFF;
+    }
 
-  <meta name="theme-color" content="#8A05BE">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <link rel="apple-touch-icon" href="/nu.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nubank</title>
-<style>
-  :root{
-    --nu-purple: #8A05BE;
-    --nu-purple-dark: #6A0090;
-    --nu-purple-light: #F2E5FA;
-    --text-dark: #1A1A1A;
-    --text-gray: #6B6B6B;
-    --border-light: #EDEDED;
-    --bg: #FFFFFF;
-  }
+    html,
+    body {
+      height: 100%;
+    }
 
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-  }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+    }
 
-  body{
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: linear-gradient(160deg, #efe2f7, #d8c3ea 60%, #efe2f7);
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding: 40px 16px;
-  }
+    .app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-  /* Phone frame */
-  .phone{
-    width: 375px;
-    max-width: 100%;
-    height: 812px;
-    background: #fff;
-    border-radius: 44px;
-    border: 10px solid #111;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-    overflow: hidden;
-    position: relative;
-    display:flex;
-    flex-direction:column;
-  }
+    /* Header */
+    .header {
+      background: var(--nu-purple);
+      padding: 16px 20px 36px 20px;
+    }
 
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0 18px 0;
+    }
 
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
 
-  .status-bar{
-    height: 44px;
-    flex-shrink:0;
-    background: var(--nu-purple);
-  }
+    .avatar svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
 
-  .app-scroll{
-    flex:1;
-    overflow-y:auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .app-scroll::-webkit-scrollbar{ display:none; }
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
 
-  /* Header */
-  .header{
-    background: var(--nu-purple);
-    padding: 4px 20px 36px 20px;
-  }
+    .header-icons svg {
+      width: 22px;
+      height: 22px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.8;
+    }
 
-  .header-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 6px 0 18px 0;
-  }
+    .greeting {
+      color: #fff;
+      font-size: clamp(20px, 5vw, 22px);
+      font-weight: 600;
+      outline: none;
+      border-bottom: 1px dashed transparent;
+      cursor: text;
+      display: inline-block;
+      max-width: 100%;
+    }
 
-  .avatar{
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.18);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .avatar svg{ width:20px; height:20px; fill:#fff; }
+    .greeting:hover,
+    .greeting:focus {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+    }
 
-  .header-icons{
-    display:flex;
-    align-items:center;
-    gap: 18px;
-  }
-  .header-icons svg{
-    width: 22px;
-    height: 22px;
-    stroke: #fff;
-    fill: none;
-    stroke-width: 1.8;
-  }
+    .greeting-label {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: clamp(20px, 5vw, 22px);
+      font-weight: 400;
+    }
 
-  .greeting{
-    color:#fff;
-    font-size: 22px;
-    font-weight: 600;
-    outline:none;
-    border-bottom: 1px dashed transparent;
-    cursor: text;
-    display:inline-block;
-    max-width: 100%;
-  }
-  .greeting:hover, .greeting:focus{
-    border-bottom: 1px dashed rgba(255,255,255,0.6);
-  }
-  .greeting-label{
-    color: rgba(255,255,255,0.85);
-    font-size: 22px;
-    font-weight: 400;
-  }
+    /* Account card */
+    .account-card {
+      background: #fff;
+      margin: -22px 16px 0 16px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(80, 20, 110, 0.12);
+      position: relative;
+      z-index: 2;
+      padding: 20px 20px 8px 20px;
+    }
 
-  /* Account card */
-  .account-card{
-    background:#fff;
-    margin: -22px 16px 0 16px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(80, 20, 110, 0.12);
-    position: relative;
-    z-index: 2;
-    padding: 20px 20px 8px 20px;
-  }
+    .account-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
 
-  .account-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom: 6px;
-  }
-  .account-title{
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-dark);
-  }
-  .chevron{
-    width: 18px;
-    height: 18px;
-    stroke: #B5B5B5;
-    stroke-width: 2.2;
-    fill:none;
-  }
+    .account-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
 
-  .balance{
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--text-dark);
-    outline:none;
-    border-bottom: 1px dashed transparent;
-    cursor:text;
-    display:inline-block;
-  }
-  .balance:hover, .balance:focus{
-    border-bottom: 1px dashed #C9A8DD;
-  }
+    .chevron {
+      width: 18px;
+      height: 18px;
+      stroke: #B5B5B5;
+      stroke-width: 2.2;
+      fill: none;
+      flex-shrink: 0;
+    }
 
-  .actions-row{
-    display:flex;
-    justify-content:space-between;
-    padding: 22px 4px 10px 4px;
-  }
-  .action-item{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap: 8px;
-    width: 64px;
-    cursor:pointer;
-  }
-  .action-circle{
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: #F4F4F4;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition: background .15s ease;
-  }
-  .action-item:hover .action-circle{
-    background: var(--nu-purple-light);
-  }
-  .action-circle svg{
-    width: 22px;
-    height: 22px;
-    stroke: var(--text-dark);
-    fill:none;
-    stroke-width: 1.7;
-  }
-  .action-label{
-    font-size: 12px;
-    color: var(--text-dark);
-    font-weight: 500;
-    text-align:center;
-  }
+    .balance {
+      font-size: clamp(22px, 6vw, 28px);
+      font-weight: 700;
+      color: var(--text-dark);
+      outline: none;
+      border-bottom: 1px dashed transparent;
+      cursor: text;
+      display: inline-block;
+      word-break: break-word;
+    }
 
-  .divider{
-    height: 1px;
-    background: var(--border-light);
-    margin: 4px 0 0 0;
-  }
+    .balance:hover,
+    .balance:focus {
+      border-bottom: 1px dashed #C9A8DD;
+    }
 
-  /* Cards row */
-  .row-link{
-    display:flex;
-    align-items:center;
-    gap: 14px;
-    padding: 16px 4px;
-    cursor:pointer;
-  }
-  .row-icon{
-    width: 22px;
-    height: 22px;
-    stroke: var(--text-dark);
-    fill:none;
-    stroke-width: 1.6;
-    flex-shrink:0;
-  }
-  .row-text{
-    flex:1;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-dark);
-  }
+    .actions-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 22px 4px 10px 4px;
+      gap: 4px;
+    }
 
-  .banner{
-    margin: 6px 16px 0 16px;
-    background: #F7F2FB;
-    border-radius: 14px;
-    padding: 16px;
-    font-size: 13px;
-    color: var(--text-dark);
-    line-height: 1.45;
-  }
-  .banner b{ color: var(--nu-purple); }
+    .action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 64px;
+      cursor: pointer;
+    }
 
-  /* Credit card section */
-  .section-card{
-    background:#fff;
-    margin: 18px 16px 0 16px;
-    border-radius: 16px;
-    border: 1px solid var(--border-light);
-    padding: 18px 20px 20px 20px;
-  }
-  .section-title-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom: 14px;
-  }
-  .section-icon{
-    width:20px;height:20px;stroke:var(--text-dark);fill:none;stroke-width:1.7;
-  }
-  .section-name{
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 4px;
-  }
-  .section-sub{
-    font-size: 13px;
-    color: var(--text-gray);
-    margin-bottom: 2px;
-  }
-  .section-value{
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 14px;
-  }
-  .section-foot{
-    font-size: 13px;
-    color: var(--text-gray);
-  }
+    .action-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #F4F4F4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s ease;
+    }
 
-  .bottom-pad{ height: 30px; }
+    .action-item:hover .action-circle {
+      background: var(--nu-purple-light);
+    }
 
-  .hint{
-    text-align:center;
-    color: #4a2a5e;
-    font-size: 13px;
-    margin-top: 18px;
-    max-width: 375px;
-  }
-</style>
+    .action-circle svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--text-dark);
+      fill: none;
+      stroke-width: 1.7;
+    }
+
+    .action-label {
+      font-size: 12px;
+      color: var(--text-dark);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border-light);
+      margin: 4px 0 0 0;
+    }
+
+    /* Cards row */
+    .row-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 4px;
+      cursor: pointer;
+    }
+
+    .row-icon {
+      width: 22px;
+      height: 22px;
+      stroke: var(--text-dark);
+      fill: none;
+      stroke-width: 1.6;
+      flex-shrink: 0;
+    }
+
+    .row-text {
+      flex: 1;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .banner {
+      margin: 6px 16px 0 16px;
+      background: #F7F2FB;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 13px;
+      color: var(--text-dark);
+      line-height: 1.45;
+    }
+
+    .banner b {
+      color: var(--nu-purple);
+    }
+
+    /* PJ promo card */
+    .pj-card {
+      margin: 6px 16px 0 16px;
+      background: #F7F2FB;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .pj-card-text {
+      font-size: 13px;
+      color: var(--text-dark);
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    .pj-card-text b {
+      color: var(--nu-purple);
+    }
+
+    .pj-card-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .pj-flag {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--nu-purple-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pj-flag svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--nu-purple);
+    }
+
+    .pj-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .pj-dots span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #D9C3E8;
+    }
+
+    .pj-dots span.active {
+      background: var(--nu-purple);
+      width: 14px;
+      border-radius: 3px;
+    }
+
+    /* Credit card section */
+    .section-card {
+      background: #fff;
+      margin: 18px 16px 0 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      padding: 18px 20px 20px 20px;
+    }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-icon {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text-dark);
+      fill: none;
+      stroke-width: 1.7;
+    }
+
+    .section-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin-bottom: 2px;
+    }
+
+    .section-value {
+      font-size: clamp(19px, 5vw, 22px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+    }
+
+    .section-foot {
+      font-size: 13px;
+      color: var(--text-gray);
+    }
+
+    .bottom-pad {
+      height: 96px;
+    }
+
+    /* Fixed bottom action bar */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      border-top: 1px solid var(--border-light);
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+      z-index: 100;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    .bottom-nav-inner {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 10px 12px;
+    }
+
+    .fatura-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #F4F4F4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .15s ease, transform .1s ease;
+      flex-shrink: 0;
+      border: none;
+    }
+
+    .fatura-btn:hover {
+      background: var(--nu-purple-light);
+    }
+
+    .fatura-btn:active {
+      transform: scale(0.94);
+    }
+
+    .fatura-btn svg {
+      width: 19px;
+      height: 19px;
+      stroke: var(--text-dark);
+      fill: none;
+      stroke-width: 1.7;
+    }
+
+    .fatura-btn.primary {
+      background: var(--nu-purple);
+    }
+
+    .fatura-btn.primary svg {
+      stroke: #fff;
+      fill: #fff;
+    }
+
+    /* Small screens */
+    @media (max-width: 360px) {
+      .header {
+        padding: 14px 16px 32px 16px;
+      }
+
+      .account-card {
+        margin: -20px 12px 0 12px;
+        padding: 18px 16px 6px 16px;
+      }
+
+      .banner {
+        margin: 6px 12px 0 12px;
+      }
+
+      .pj-card {
+        margin: 6px 12px 0 12px;
+        padding: 14px;
+      }
+
+      .section-card {
+        margin: 16px 12px 0 12px;
+        padding: 16px 16px 18px 16px;
+      }
+
+      .actions-row {
+        padding: 18px 0 8px 0;
+      }
+
+      .action-item {
+        width: 56px;
+      }
+
+      .action-circle {
+        width: 46px;
+        height: 46px;
+      }
+
+      .fatura-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      .fatura-btn svg {
+        width: 17px;
+        height: 17px;
+      }
+    }
+
+    /* Larger screens: give the app a max width but keep it full-bleed, no bezel */
+    @media (min-width: 600px) {
+      .app {
+        margin: 0 auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-  <div>
-    <div class="phone">
-      <div class="notch"></div>
-      <div class="status-bar"></div>
-
-      <div class="app-scroll">
-        <div class="header">
-          <div class="header-top">
-            <div class="avatar">
-              <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.5c-3.4 0-10 1.7-10 5.1V22h20v-2.4c0-3.4-6.6-5.1-10-5.1z"/></svg>
-            </div>
-            <div class="header-icons">
-              <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.2 2.4c-.9.3-1.7 1-1.7 2.1" stroke-linecap="round"/><circle cx="12" cy="17" r="0.3" fill="#fff"/></svg>
-              <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 6 10-6" stroke-linecap="round"/><circle cx="19" cy="6" r="4" fill="#8A05BE" stroke="#fff"/></svg>
-            </div>
-          </div>
-          <span class="greeting-label">Olá, </span><span class="greeting" contenteditable="true" id="userName">Ruan</span>
+  <div class="app">
+    <div class="header">
+      <div class="header-top">
+        <div class="avatar">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.5c-3.4 0-10 1.7-10 5.1V22h20v-2.4c0-3.4-6.6-5.1-10-5.1z" />
+          </svg>
         </div>
-
-        <div class="account-card">
-          <div class="account-row">
-            <span class="account-title">Conta</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="balance" contenteditable="true" id="balance">R$ 211.356,98</div>
-
-          <div class="actions-row">
-            <div class="action-item">
-              <div class="action-circle">
-                <svg viewBox="0 0 24 24"><path d="M12 2l4 4-4 4-4-4 4-4zM12 14l4 4-4 4-4-4 4-4zM2 12l4-4 4 4-4 4-4-4zM14 12l4-4 4 4-4 4-4-4z"/></svg>
-              </div>
-              <div class="action-label">Pix</div>
-            </div>
-            <div class="action-item">
-              <div class="action-circle">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="2" height="18"/><rect x="7" y="3" width="1" height="18"/><rect x="10" y="3" width="3" height="18"/><rect x="15" y="3" width="1" height="18"/><rect x="18" y="3" width="2" height="18"/></svg>
-              </div>
-              <div class="action-label">Pagar</div>
-            </div>
-            <div class="action-item">
-              <div class="action-circle">
-                <svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              <div class="action-label">Transferir</div>
-            </div>
-            <div class="action-item">
-              <div class="action-circle">
-                <svg viewBox="0 0 24 24"><path d="M4 12h16M10 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              <div class="action-label">Depositar</div>
-            </div>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="row-link">
-            <svg class="row-icon" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M4 9h16"/></svg>
-            <div class="row-text">Meus Cartões</div>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+        <div class="header-icons">
+          <svg viewBox="0 0 24 24">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.5 9a2.5 2.5 0 1 1 3.2 2.4c-.9.3-1.7 1-1.7 2.1" stroke-linecap="round" />
+            <circle cx="12" cy="17" r="0.3" fill="#fff" />
+          </svg>
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+            <path d="M2 7l10 6 10-6" stroke-linecap="round" />
+            <circle cx="19" cy="6" r="4" fill="#8A05BE" stroke="#fff" />
+          </svg>
         </div>
+      </div>
+      <span class="greeting-label">Olá, </span><span class="greeting" contenteditable="true" id="userName">Ruan</span>
+    </div>
 
-        <div class="banner">
-          <b>Novidade!</b> Conheça a ferramenta de Controle de Gastos do Nubank.
-        </div>
+    <div class="account-card">
+      <div class="account-row">
+        <span class="account-title">Conta</span>
+        <svg class="chevron" viewBox="0 0 24 24">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="balance" contenteditable="true" id="balance">R$ 211.356,98</div>
 
-        <div class="section-card">
-          <div class="section-title-row">
-            <svg class="section-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="12" cy="10" r="3"/></svg>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="actions-row">
+        <div class="action-item" onclick="window.location.href='pix.html'" style="cursor:pointer;">
+          <div class="action-circle">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2l4 4-4 4-4-4 4-4zM12 14l4 4-4 4-4-4zM2 12l4-4 4 4-4 4-4-4zM14 12l4-4 4 4-4 4-4-4z" />
+            </svg>
           </div>
-          <div class="section-name">Cartão de crédito</div>
-          <div class="section-sub">Fatura atual</div>
-          <div class="section-value">R$ 3.094,00</div>
-          <div class="section-foot">Limite disponível de R$ 45.500,00</div>
+          <div class="action-label">Pix</div>
         </div>
+        <div class="action-item">
+          <div class="action-circle">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="2" height="18" />
+              <rect x="7" y="3" width="1" height="18" />
+              <rect x="10" y="3" width="3" height="18" />
+              <rect x="15" y="3" width="1" height="18" />
+              <rect x="18" y="3" width="2" height="18" />
+            </svg>
+          </div>
+          <div class="action-label">Pagar</div>
+        </div>
+        <div class="action-item">
+          <div class="action-circle">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="action-label">Transferir</div>
+        </div>
+        <div class="action-item">
+          <div class="action-circle">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 12h16M10 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="action-label">Depositar</div>
+        </div>
+      </div>
 
-        <div class="bottom-pad"></div>
+      <div class="divider"></div>
+
+      <div class="row-link">
+        <svg class="row-icon" viewBox="0 0 24 24">
+          <rect x="4" y="6" width="16" height="12" rx="2" />
+          <path d="M4 9h16" />
+        </svg>
+        <div class="row-text">Meus Cartões</div>
+        <svg class="chevron" viewBox="0 0 24 24">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </div>
     </div>
 
+    <div class="pj-card">
+      <div>
+        <div class="pj-card-text">Organize o dinheiro do seu negócio com a <b>Conta PJ</b>.</div>
+        <div class="pj-dots">
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="pj-card-right">
+        <div class="pj-flag">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 3v18h2v-7h11l-2-4 2-4H7V3H5z" />
+          </svg>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="banner">
+      <b>Novidade!</b> Conheça a ferramenta de Controle de Gastos do Nubank.
+    </div>
+
+    <div class="section-card">
+      <div class="section-title-row">
+        <svg class="section-icon" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="14" rx="2" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        <svg class="chevron" viewBox="0 0 24 24">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="section-name">Cartão de crédito</div>
+      <div class="section-sub">Fatura atual</div>
+      <div class="section-value">R$ 3.094,00</div>
+      <div class="section-foot">Limite disponível de R$ 45.500,00</div>
+    </div>
+
+    <div class="bottom-pad"></div>
   </div>
 
-<script>
-  // place caret cleanly when editing, select all text on focus for quick replace
-  function setupEditable(el){
-    el.addEventListener('focus', () => {
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    });
-    el.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter'){
-        e.preventDefault();
-        el.blur();
-      }
-    });
-    el.addEventListener('blur', () => {
-      if(el.textContent.trim() === '') el.textContent = el.dataset.placeholder || '';
-    });
-  }
-  setupEditable(document.getElementById('userName'));
-  setupEditable(document.getElementById('balance'));
-</script>
+  <div class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <div class="fatura-btn primary" title="Pagar fatura">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="1.6" />
+          <path
+            d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.2c0 1.6-1.5 2-3 2.3-1.5.3-3 .7-3 2.3 0 1.1 1.3 2.2 3 2.2s3-1.1 3-2.5"
+            stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" />
+        </svg>
+      </div>
+      <div class="fatura-btn" title="Ver fatura">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 15l5-10 5 10M7 9h10" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="fatura-btn" title="Compartilhar">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3v12M8 7l4-4 4 4M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="fatura-btn" title="Copiar">
+        <svg viewBox="0 0 24 24">
+          <rect x="8" y="8" width="12" height="12" rx="2" />
+          <path d="M4 16V4a2 2 0 0 1 2-2h10" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setupEditable(el) {
+      el.addEventListener('focus', () => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          el.blur();
+        }
+      });
+      el.addEventListener('blur', () => {
+        if (el.textContent.trim() === '') el.textContent = el.dataset.placeholder || '';
+      });
+    }
+    setupEditable(document.getElementById('userName'));
+    setupEditable(document.getElementById('balance'));
+  </script>
 
 </body>
+
 </html>
