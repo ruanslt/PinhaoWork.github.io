@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" href="/nu.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Para quem transferir</title>
+  <style>
+    :root {
+      --nu-purple: #8A05BE;
+      --nu-purple-dark: #6A0090;
+      --nu-purple-light: #F2E5FA;
+      --text-dark: #1A1A1A;
+      --text-gray: #6B6B6B;
+      --border-light: #EDEDED;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #EDE7F2;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background: #F7F4FA;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    .topbar {
+      padding: calc(18px + env(safe-area-inset-top, 0px)) 20px 4px 20px;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    .icon-btn svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    /* Content */
+    .content {
+      padding: 12px 24px 8px 24px;
+    }
+
+    .title {
+      font-size: clamp(24px, 7vw, 28px);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-gray);
+      line-height: 1.45;
+      margin-bottom: 28px;
+    }
+
+    .subtitle b {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .search-wrap {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .search-input {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid var(--nu-purple);
+      background: transparent;
+      font-size: 17px;
+      color: var(--text-dark);
+      padding: 4px 30px 12px 0;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-gray);
+      font-weight: 400;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 0;
+      bottom: 12px;
+      width: 20px;
+      height: 20px;
+      stroke: var(--nu-purple);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .section-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0 24px 16px 24px;
+    }
+
+    /* Frequent contacts */
+    .frequent-row {
+      display: flex;
+      gap: 22px;
+      padding: 0 24px 8px 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .frequent-row::-webkit-scrollbar { display: none; }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .avatar-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #D9D2E0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .contact-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--nu-purple);
+      text-align: center;
+      max-width: 70px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .divider {
+      height: 8px;
+      background: var(--border-light);
+      margin: 28px 0 0 0;
+    }
+
+    /* All contacts list */
+    .list-section-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      padding: 20px 24px 12px 24px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 24px;
+      cursor: pointer;
+    }
+
+    .contact-row .avatar-circle {
+      width: 44px;
+      height: 44px;
+      font-size: 13px;
+      background: #E3DCEA;
+    }
+
+    .contact-row-text {
+      flex: 1;
+    }
+
+    .contact-row-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .contact-row-sub {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin-top: 2px;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px)) 20px;
+      background: linear-gradient(to top, #F7F4FA 60%, rgba(247,244,250,0));
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform .25s ease, opacity .25s ease;
+      pointer-events: none;
+    }
+
+    .footer.visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .continue-btn {
+      width: 100%;
+      background: var(--nu-purple);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 16px 0;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .bottom-pad { height: 100px; }
+
+    @media (max-width: 360px) {
+      .content { padding: 10px 18px 6px 18px; }
+      .section-label, .list-section-label { margin-left: 18px; margin-right: 18px; padding-left: 18px; padding-right: 18px; }
+      .frequent-row { padding-left: 18px; padding-right: 18px; gap: 16px; }
+      .contact-row { padding: 12px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+    <div class="topbar">
+      <button class="icon-btn" aria-label="Voltar" onclick="window.location.href='transferir-valor.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="content">
+      <div class="title">Para quem você quer transferir <span id="valorTitle">R$ 1,00</span>?</div>
+      <div class="subtitle">Encontre um contato na sua lista ou inicie uma <b>nova transferência</b></div>
+
+      <div class="search-wrap">
+        <input class="search-input" type="text" placeholder="Nome, CPF/CNPJ ou chave Pix">
+        <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+    </div>
+
+    <div class="section-label">Contatos frequentes</div>
+    <div class="frequent-row">
+      <div class="contact-item">
+        <div class="avatar-circle">AR</div>
+        <div class="contact-name">Adriano</div>
+      </div>
+      <div class="contact-item">
+        <div class="avatar-circle">AA</div>
+        <div class="contact-name">Ana</div>
+      </div>
+      <div class="contact-item">
+        <div class="avatar-circle">JL</div>
+        <div class="contact-name">JHAMES</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="list-section-label">Todos os contatos</div>
+    <div class="contact-row">
+      <div class="avatar-circle">AR</div>
+      <div class="contact-row-text">
+        <div class="contact-row-name">Adriano</div>
+        <div class="contact-row-sub">Chave Pix • CPF</div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <div class="avatar-circle">AA</div>
+      <div class="contact-row-text">
+        <div class="contact-row-name">Ana</div>
+        <div class="contact-row-sub">Chave Pix • Celular</div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <div class="avatar-circle">JL</div>
+      <div class="contact-row-text">
+        <div class="contact-row-name">JHAMES</div>
+        <div class="contact-row-sub">Chave Pix • E-mail</div>
+      </div>
+    </div>
+
+    <div class="bottom-pad"></div>
+  </div>
+
+  <div class="footer" id="footer">
+    <div class="footer-inner">
+      <button class="continue-btn" id="continueBtn">Continuar</button>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const valor = params.get('valor');
+    if (valor) {
+      document.getElementById('valorTitle').textContent = valor;
+    }
+
+    const searchInput = document.querySelector('.search-input');
+    const footer = document.getElementById('footer');
+    const continueBtn = document.getElementById('continueBtn');
+
+    searchInput.addEventListener('input', () => {
+      if (searchInput.value.trim().length > 0) {
+        footer.classList.add('visible');
+      } else {
+        footer.classList.remove('visible');
+      }
+    });
+
+    continueBtn.addEventListener('click', () => {
+      const chave = encodeURIComponent(searchInput.value.trim());
+      window.location.href = 'transferir-valor.html?chave=' + chave;
+    });
+
+    document.querySelectorAll('.contact-item, .contact-row').forEach((el) => {
+      el.addEventListener('click', () => {
+        const nome = el.querySelector('.contact-name, .contact-row-name').textContent.trim();
+        window.location.href = 'transferir-valor.html?chave=' + encodeURIComponent(nome);
+      });
+    });
+  </script>
+
+</body>
+</html>
